@@ -41,7 +41,7 @@ services:
     image: redis:alpine
     volumes:
       - "./healthchecks:/healthchecks"
-    command: /bin/sh -c "chmod +x /healthchecks/redis.sh && redis-server"
+    command: /bin/sh -c "chmod +x ./healthchecks/redis.sh && redis-server"
     healthcheck:
       test: ./healthchecks/redis.sh
       interval: 30s
@@ -58,7 +58,7 @@ services:
     volumes:
       - "db-data:/var/lib/postgresql/data"
       - "./healthchecks:/healthchecks"
-    command: /bin/sh -c "chmod +x /healthchecks/postgres.sh && docker-entrypoint.sh postgres"
+    command: /bin/sh -c "chmod +x ./healthchecks/postgres.sh && docker-entrypoint.sh postgres"
     healthcheck:
       test: ./healthchecks/postgres.sh
       interval: 30s
