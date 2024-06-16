@@ -43,7 +43,7 @@ services:
       - "./healthchecks:/healthchecks"
     command: /bin/sh -c "chmod +x /healthchecks/redis.sh && redis-server"
     healthcheck:
-      test: /healthchecks/redis.sh
+      test: ./healthchecks/redis.sh
       interval: 30s
       timeout: 10s
       retries: 3
@@ -60,7 +60,7 @@ services:
       - "./healthchecks:/healthchecks"
     command: /bin/sh -c "chmod +x /healthchecks/postgres.sh && docker-entrypoint.sh postgres"
     healthcheck:
-      test: /healthchecks/postgres.sh
+      test: ./healthchecks/postgres.sh
       interval: 30s
       timeout: 10s
       retries: 3
