@@ -9,7 +9,7 @@ services:
     image: 172.21.0.3:8082/example-voting-app-vote:latest
     depends_on:
       redis:
-        condition: service_healthy 
+        condition: service_healthy
     ports:
       - "5000:80"
     networks:
@@ -20,7 +20,7 @@ services:
     image: 172.21.0.3:8082/example-voting-app-result:latest
     depends_on:
       db:
-        condition: service_healthy 
+        condition: service_healthy
     ports:
       - "5001:80"
     networks:
@@ -31,9 +31,9 @@ services:
     image: 172.21.0.3:8082/example-voting-app-worker:latest
     depends_on:
       redis:
-        condition: service_healthy 
+        condition: service_healthy
       db:
-        condition: service_healthy 
+        condition: service_healthy
     networks:
       - back-tier
 
@@ -41,9 +41,12 @@ services:
     image: redis:alpine
     volumes:
       - "./healthchecks:/healthchecks"
+    command: /bin/sh -c "chmod +x /healthchecks/redis.sh && redis-server"
     healthcheck:
       test: /healthchecks/redis.sh
-      interval: "5s"
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - back-tier
 
@@ -55,9 +58,12 @@ services:
     volumes:
       - "db-data:/var/lib/postgresql/data"
       - "./healthchecks:/healthchecks"
+    command: /bin/sh -c "chmod +x /healthchecks/postgres.sh && docker-entrypoint.sh postgres"
     healthcheck:
       test: /healthchecks/postgres.sh
-      interval: "5s"
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - back-tier
 
