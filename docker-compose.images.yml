@@ -22,7 +22,7 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "5001:80"
+      - "5002:80"
     networks:
       - front-tier
       - back-tier
