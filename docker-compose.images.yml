@@ -62,7 +62,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s  # Aumenta el tiempo de espera inicial antes de empezar a realizar verificaciones
     networks:
       - back-tier
 
