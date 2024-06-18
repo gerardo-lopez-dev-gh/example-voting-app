@@ -42,8 +42,10 @@ services:
     volumes:
       - "./healthchecks:/healthchecks"
     healthcheck:
-      test: /healthchecks/redis.sh
-      interval: "5s"
+      test: ./healthchecks/redis.sh
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - back-tier
 
@@ -56,8 +58,10 @@ services:
       - "db-data:/var/lib/postgresql/data"
       - "./healthchecks:/healthchecks"
     healthcheck:
-      test: /healthchecks/postgres.sh
-      interval: "5s"
+      test: ./healthchecks/postgres.sh
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - back-tier
   # this service runs once to seed the database with votes
