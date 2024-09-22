@@ -48,4 +48,5 @@ def hello():
 
 
 if __name__ == "__main__":
+    raise Exception("This is a simulated error!")
     app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
